@@ -14,6 +14,15 @@ qemu-system-mipsel  -m 512 -M malta -kernel debian.mipsel/vmlinuz \
                     -hda debian.mipsel/image.qcow2 -net nic -net tap,ifname=tap109,script="./qemu-brup",downscript="./qemu-brdown" \
                     -nographic
 ```
+
+A sample for `armhf`:
+```bash
+/opt/qemu/bin/qemu-system-arm -m 2048 -M virt -cpu cortex-a15 -smp cpus=4,maxcpus=4 \
+                              -kernel debian.armhf/vmlinuz -initrd debian.armhf/initrd.img -append "root=/dev/vda net.ifnames=0 biosdevname=0 nokaslr" \
+                              -hda debian.armhf/image.qcow2 -net nic -net tap,ifname=tap108,script="./qemu-brup",downscript="./qemu-brdown" \
+                              -nographic
+```
+
 cat qemu-brup
 ```bash 
 #! /bin/sh
