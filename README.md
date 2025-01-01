@@ -34,7 +34,7 @@ qemu-system-arm -m 2048 -M virt -cpu cortex-a15 -smp cpus=4,maxcpus=4 \
 
 `aarch64`:
 ```
-aarch64 -m 512 -M virt -cpu cortex-a57 -kernel  debian.aarch64/vmlinuz \
+qemu-system-aarch64 -m 512 -M virt -cpu cortex-a57 -kernel  debian.aarch64/vmlinuz \
                               -initrd  debian.aarch64/initrd.img \
                               -append "console=ttyAMA0 debug root=/dev/sda net.ifnames=0" \
                               -hda debian.aarch64/image.qcow2 -nographic \
