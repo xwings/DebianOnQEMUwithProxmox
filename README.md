@@ -45,17 +45,23 @@ cat qemu-brup
 ```bash 
 #! /bin/sh
 # qemu-ifup script to bring a network (tap) device for qemu up
-# ifconfig / brctl version
 
-# You must specify the preexisting bridge interface you want the tap
-# connected to in the variable "bridge" set below.
-bridge=vmbr0
+MAINIF=eth0
+BR_IF=br0vm
+BRIF_IP="10.192.192.254"
 
-brctl=$(which brctl)
-echo $0 connecting $1 to $bridge
-ifconfig "$1" 0.0.0.0 up
-brctl addif $bridge "$1"
-exit
+ip link add name $BR_IF type bridge
+ip addr add $BRIF_IP/24 dev $BR_IF
+ip link set $BR_IF up
+
+tunctl -t $1
+ip link set $1 up
+
+brctl addif $BR_IF $1
+
+iptables -t nat -A POSTROUTING -o $MAINIF -j MASQUERADE
+iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -o $MAINIF -i br0vm -j ACCEPT
 ```
 
 cat qemu-brdown
