@@ -10,8 +10,7 @@ apt-get install git libssl-dev libffi-dev build-essential python3-pip zlib1g-dev
 
 # Quick Start
 
-Download `vmlinuz`, `initrd` and `qcow2` image from the [wtdcode repo](https://github.com/wtdcode/DebianOnQEMU/releases), and start your virtual machine with QEMU.
-
+Download `vmlinuz`, `initrd` and `qcow2` image from [wtdcode repo](https://github.com/wtdcode/DebianOnQEMU/releases)
 `mipsel`:
 
 ```bash
