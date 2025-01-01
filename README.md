@@ -10,9 +10,9 @@ apt-get install git libssl-dev libffi-dev build-essential python3-pip zlib1g-dev
 
 # Quick Start
 
-Download `vmlinuz`, `initrd` and `qcow2` image from the release page, and start your virtual machine with QEMU.
+Download `vmlinuz`, `initrd` and `qcow2` image from the [wtdcode repo](https://github.com/wtdcode/DebianOnQEMU/releases), and start your virtual machine with QEMU.
 
-A sample for `mipsel`:
+`mipsel`:
 
 ```bash
 qemu-system-mipsel  -m 512 -M malta -kernel debian.mipsel/vmlinuz \
@@ -21,12 +21,21 @@ qemu-system-mipsel  -m 512 -M malta -kernel debian.mipsel/vmlinuz \
                     -nographic
 ```
 
-A sample for `armhf`:
+`armhf`:
 ```bash
-/opt/qemu/bin/qemu-system-arm -m 2048 -M virt -cpu cortex-a15 -smp cpus=4,maxcpus=4 \
+qemu-system-arm -m 2048 -M virt -cpu cortex-a15 -smp cpus=4,maxcpus=4 \
                               -kernel debian.armhf/vmlinuz -initrd debian.armhf/initrd.img -append "root=/dev/vda net.ifnames=0 biosdevname=0 nokaslr" \
                               -hda debian.armhf/image.qcow2 -net nic -net tap,ifname=tap108,script="./qemu-brup",downscript="./qemu-brdown" \
                               -nographic
+```
+
+`aarch64`:
+```
+aarch64 -m 512 -M virt -cpu cortex-a57 -kernel ./vmlinuz-5.10.0-26-arm64 \
+                              -initrd ./initrd.img-5.10.0-26-arm64 \
+                              -append "console=ttyAMA0 debug root=/dev/sda net.ifnames=0" \
+                              -hda ./debian-bullseye-arm64.qcow2 -nographic \
+                              -net nic -net tap,ifname=tap108,script="./qemu-brup",downscript="./qemu-brdown"
 ```
 
 cat qemu-brup
