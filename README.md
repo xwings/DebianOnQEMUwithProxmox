@@ -35,10 +35,10 @@ qemu-system-arm -m 2048 -M virt -cpu cortex-a15 -smp cpus=4,maxcpus=4 \
 
 `aarch64`:
 ```
-aarch64 -m 512 -M virt -cpu cortex-a57 -kernel ./vmlinuz-5.10.0-26-arm64 \
-                              -initrd ./initrd.img-5.10.0-26-arm64 \
+aarch64 -m 512 -M virt -cpu cortex-a57 -kernel  debian.aarch64/vmlinuz \
+                              -initrd  debian.aarch64/initrd.img \
                               -append "console=ttyAMA0 debug root=/dev/sda net.ifnames=0" \
-                              -hda ./debian-bullseye-arm64.qcow2 -nographic \
+                              -hda debian.aarch64/debian-bullseye-arm64.qcow2 -nographic \
                               -net nic -net tap,ifname=tap108,script="./qemu-brup",downscript="./qemu-brdown"
 ```
 
